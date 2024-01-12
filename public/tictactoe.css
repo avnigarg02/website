@@ -1,0 +1,26 @@
+.svg-wrapper {
+    background-color: white;
+    width: 400px;
+    margin: auto;
+    /* stroke: lightgrey; */
+    /* stroke-width: 5; */
+}
+
+#boxes {
+    stroke: black;
+    fill: plum;
+}
+
+div>p {
+    font: 120% sans-serif;
+    text-align: center;
+}
+
+#reset {
+    background-color: azure;
+    width: 15%;
+    margin: auto;
+    text-align: center;
+    font: 120% sans-serif;
+    border: purple solid 4px;
+}

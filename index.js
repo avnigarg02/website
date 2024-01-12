@@ -4,10 +4,15 @@ const app = express()
 app.set('view engine', 'ejs')
 
 app.use("/css", express.static("./node_modules/bootstrap/dist/css"));
+app.use(express.static('public'));
 
 // -------------- routes -------------- //
 app.get('/', (req, res) => {
     res.render('index')
+})
+
+app.get('/tictactoe', (req, res) => {
+    res.render('tictactoe')
 })
 
 
