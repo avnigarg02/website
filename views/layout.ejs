@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="<% theme %>">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles/style.css" />
+</head>
+
+<body class="flex flex-col min-h-screen justify-between drawer">
+
+    <input id="my-drawer-3" type="checkbox" class="drawer-toggle" /> 
+    <div class="drawer-content flex flex-col">
+        <%- include('navbar.ejs', {activeTab: active }) %>
+
+        <%- include(content) %>
+    </div>
+
+    <div class="drawer-side">
+        <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
+        <ul class="menu p-4 w-80 min-h-full bg-base-200">
+            <li><a href='/'>Home</a></li>
+            <li><a href="/games">Games</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <%- include('footer.ejs') %>
+
+</body>
+
+</html>

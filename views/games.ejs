@@ -1,30 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games</title>
-    <link rel="stylesheet" href="/styles/style.css" />
-</head>
-
-<body class="flex flex-col min-h-screen">
-    <%- include('navbar.ejs', {activeTab: 'Games' }) %>
-
-    <article class="prose p-10 flex-grow w-full">
-        <h1>Games</h1>
-        <p>Have fun!</p>
-        <br />
-        <a href="/games/wordle">Wordle Word Finder</a>
-        <br />
-        <a href="/games/madlibs-input">Madlibs</a>
-        <br />
-        <a href="/games/tictactoe">TicTacToe</a>
-
-    </article>
-
-    <%- include('footer.ejs') %>
-
-</body>
-
-</html>
+<article class="prose p-10 flex-grow w-full">
+    <h1>Games</h1>
+    <p>Have fun!</p>
+    <br />
+    <a href="/games/wordle">Wordle Word Finder</a>
+    <br />
+    <a href="/games/madlibs-input">Madlibs</a>
+    <br />
+    <a href="/games/tictactoe">TicTacToe</a>
+</article>

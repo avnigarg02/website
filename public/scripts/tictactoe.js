@@ -6,7 +6,7 @@ let gameState = {
     moveCount: 0
 }
 let pieces = document.getElementById("pieces");
-let status = document.getElementById("status");
+let state = document.getElementById("status");
 
 // makes the move for the current player at the given position if possible
 // updates gameState.turn and gameState.over
@@ -44,17 +44,17 @@ const checkWin = (player) => {
 }
 
 // resets gameState to its initial state
-const reset = () => {
+document.querySelector("#reset").addEventListener('click', () => {
     gameState.board = new Array(9).fill(null);
     gameState.turn = 'x';
     gameState.over = false;
     gameState.moveCount = 0;
     pieces.innerHTML = "";
-    status.innerHTML = "Game Status: New Game, X moves first";
-}
+    state.innerHTML = "Game Status: New Game, X moves first";
+})
 
 // handles a click on the game board
-const move = (e) => {
+document.querySelector("#gameBoard").addEventListener('click', (e) => {
     // make sure game isn't over before proceeding
     if (gameState.over) {
         return;
@@ -68,12 +68,12 @@ const move = (e) => {
     let icon;
     if (player) {
         icon = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        icon.setAttribute("fill", "red");
+        icon.setAttribute("class", "fill-accent");
         icon.setAttribute("d", "m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z");
         icon.setAttribute("transform", "scale(0.04) translate(" + ((pos % 3) * 750 - 100) + ", " + (Math.floor(pos / 3) * 740 + 860) + ")");
     } else {
         icon = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        icon.setAttribute("stroke", "blue");
+        icon.setAttribute("class", "stroke-primary");
         icon.setAttribute("cx", pos % 3 * 30 + 15);
         icon.setAttribute("cy", Math.floor(pos / 3) * 30 + 15);
         icon.setAttribute("r", "11.5");
@@ -88,21 +88,15 @@ const move = (e) => {
 
         gameState.moveCount++;
         if (gameState.over) {
-            status.innerHTML = "Game Status: Game Over, " + (player ? 'X' : 'O') + " wins. <br> Click Reset to play again";
+            state.innerHTML = "Game Status: Game Over, " + (player ? 'X' : 'O') + " wins. <br> Click Reset to play again";
         } else if (gameState.moveCount === 9) {
             gameState.over = true;
-            status.innerHTML = "Game Status: Game Over, Tie. <br> Click Reset to play again";
+            state.innerHTML = "Game Status: Game Over, Tie. <br> Click Reset to play again";
         } else {
-            status.innerHTML = "Game Status: " + gameState.turn.toUpperCase() + " moves next";
+            state.innerHTML = "Game Status: " + gameState.turn.toUpperCase() + " moves next";
         }
 
     } else {
-        status.innerHTML = "Game Status: Invalid Move, " + gameState.turn.toUpperCase() + " moves next";
+        state.innerHTML = "Game Status: Invalid Move, " + gameState.turn.toUpperCase() + " moves next";
     }
-}
-
-// add event listeners to the game board and reset button
-const gameBoard = document.querySelector("#gameBoard");
-gameBoard.addEventListener('click', move);
-const resetButton = document.querySelector("#reset");
-resetButton.addEventListener('click', reset);
+})

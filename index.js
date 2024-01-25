@@ -9,28 +9,18 @@ app.set('view engine', 'ejs')
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 
-function get_theme(req, res) {
-    let { dark_mode } = req.cookies
-
-    if (dark_mode === undefined) {
-        dark_mode = true
-        res.cookie('dark_mode', dark_mode, {});
-    }
-
-    return dark_mode
-}
+const { render_page } = require('./utils/helper.js')
 
 // -------------- routes -------------- //
 const games = require('./routes/games.js')
 app.use(games);
 
 app.get('/', (req, res) => {
-    let theme = get_theme(req, res) ? 'night' : 'winter'
-    res.render('index', { theme: theme })
+    render_page(req, res, 'index', 'Avni Garg', 'Home')
 })
 
 app.get('/contact', (req, res) => {
-    res.render('contact')
+    render_page(req, res, 'contact', 'Contact', 'Contact')
 })
 
 // -------------- listener -------------- //

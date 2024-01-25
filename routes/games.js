@@ -4,17 +4,7 @@ const games = express.Router();
 const path = require('path');
 games.use(express.static(path.join(__dirname, 'public')));
 
-
-// -------------- read files -------------- //
-function readFilePromise(path) {
-    return new Promise((resolve) => {
-        const fs = require('fs')
-        fs.readFile(path, (err, data) => {
-            if (err) throw err;
-            resolve(data.toString());
-        });
-    });
-}
+const { render_page, readFilePromise } = require('../utils/helper.js')
 
 // -------------- functions -------------- //
 function filterWords(words, g1, g2, g3, g4, g5, y11, y12, y13, y14, y15, y21, y22, y23, y24, y25, gray) {
@@ -46,17 +36,15 @@ function filterWords(words, g1, g2, g3, g4, g5, y11, y12, y13, y14, y15, y21, y2
 
 
 games.get('/games', (req, res) => {
-
-    res.render('games');
-
+    render_page(req, res, 'games', 'Games', 'Games')
 });
 
 games.get('/games/tictactoe', (req, res) => {
-    res.render('tictactoe')
+    render_page(req, res, 'tictactoe', 'TicTacToe', 'Games')
 })
 
 games.get('/games/madlibs-input', (req, res) => {
-    res.render('madlibs-input')
+    render_page(req, res, 'madlibs-input', 'MadLibs', 'Games')
 })
 
 games.post('/games/madlibs-output', (req, res) => {
@@ -86,7 +74,7 @@ games.post('/games/madlibs-output', (req, res) => {
 })
 
 games.get('/games/wordle', (req, res) => {
-    res.render('wordle')
+    render_page(req, res, 'wordle', 'Wordle Word Finder', 'Games')
 })
 
 games.get('/games/allwords', async (req, res) => {
