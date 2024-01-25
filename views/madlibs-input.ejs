@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MadLib</title>
+    <link rel="stylesheet" href="/styles/style.css" />
+
+</head>
+<body class="p-10">
+    <form action="madlib-output" method="POST" onsubmit="return validateForm()">
+        <input type="date" name="date"> <br>
+        <input type="text" name="name" placeholder="Name"> <br>
+        <input type="text" name="adjective1" placeholder="Adjective"> <br>
+        <input type="text" name="emotion" placeholder="Emotion"> <br>
+        <input type="text" name="adjective2" placeholder="Adjective"> <br>
+        <input type="text" name="verb" placeholder="Verb ending in 'ing'"> <br>
+        <input type="text" name="food" placeholder="Food Item"> <br>
+        <input type="text" name="beverage" placeholder="Beverage"> <br>
+        <input type="text" name="adjective3" placeholder="Adjective"> <br>
+
+        <input type="text" name="noun" placeholder="Noun"> <br>
+
+        <label for="place">Choose a place:</label> <br>
+        <input type="radio" name="place" value="Enchanted Forest" id="enchanted-forest"> 
+        <label for="enchanted-forest">Enchanted Forest</label> <br>
+        <input type="radio" name="place" value="Candy Land" id="candy-land"> 
+        <label for="candy-land">Candy Land</label> <br>
+        <input type="radio" name="place" value="Atlantis" id="atlantis"> 
+        <label for="atlantis">Atlantis</label> <br>
+        <input type="radio" name="place" value="Neverland" id="neverland">
+        <label for="neverland">Neverland</label> <br>
+        <input type="radio" name="place" value="Hogwarts" id="hogwarts">
+        <label for="hogwarts">Hogwarts</label> <br>
+        <input type="radio" name="place" value="Narnia" id="narnia">
+        <label for="narnia">Narnia</label> <br>
+        <input type="radio" name="place" value="Middle Earth" id="middle-earth">
+        <label for="middle-earth">Middle Earth</label> <br>
+        <input type="radio" name="place" value="Hyrule" id="hyrule">
+        <label for="hyrule">Hyrule</label> <br>
+
+        <input type="text" name="animal" placeholder="Animal"> <br>
+        <input type="text" name="verb2" placeholder="Verb ending in 'ing'"> <br>
+        <input type="text" name="adjective4" placeholder="Adjective"> <br>
+        <input type="text" name="color" placeholder="Color"> <br>
+        
+        <input type="text" name="verb3" placeholder="Verb ending in 'ing'"> <br>
+        <input type="text" name="noun2" placeholder="Noun"> <br>
+        <input type="text" name="emotion2" placeholder="Emotion"> <br>
+
+        <p id="error"></p>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script src="/scripts/madlibs.js"></script>
+
+</body>
+</html>

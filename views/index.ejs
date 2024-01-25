@@ -4,12 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <title>Avni Garg</title>
+    <link rel="stylesheet" href="/styles/style.css" />
 </head>
 
-<body>
-    Hello, this is my personal website.
+<body class="flex flex-col min-h-screen">
+    <%- include('navbar.ejs', {activeTab: 'Home' }) %>
+
+    <article class="prose p-10 flex-grow">
+        <p>Hello, I am</p>
+        <h1>Avni Garg</h1>
+    </article>
+
+    <%- include('footer.ejs') %>
+
 </body>
 
 </html>

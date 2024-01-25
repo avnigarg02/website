@@ -1,0 +1,11 @@
+p {
+    font-family: "courier new", courier, monospace;
+    font-size: 40px;
+    font-weight: bold;
+    color: #ffffff;
+    -webkit-text-stroke: 2px white;
+	-webkit-text-fill-color: black;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}

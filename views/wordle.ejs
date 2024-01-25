@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle Word Finder</title>
+    <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" /> -->
+    <link rel="stylesheet" href="/styles/style.css" />
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <%- include('navbar.ejs', {activeTab: 'Games' }) %>
+
+    <div class="flex w-full">
+        <article class="prose p-10 flex-grow w-1/2">
+
+            <div class="container mx-auto text-center">
+                <h1 class="text-3xl">Wordle Word Finder</h1>
+                <p>Enter the letters in the boxes below and click the button to find all possible words!</p>
+            </div>
+            <div class="container mx-auto text-center py-4">
+                <p>GREEN letters </p>
+                <form class="flex justify-center space-x-2">
+                    <input type="text" id="g1" class="green w-12 h-12 input input-bordered input-success rounded">
+                    <input type="text" id="g2" class="green w-12 h-12 input input-bordered input-success rounded">
+                    <input type="text" id="g3" class="green w-12 h-12 input input-bordered input-success rounded">
+                    <input type="text" id="g4" class="green w-12 h-12 input input-bordered input-success rounded">
+                    <input type="text" id="g5" class="green w-12 h-12 input input-bordered input-success rounded">
+                </form>
+            </div>
+            <div class="container mx-auto text-center py-4">
+                <p>YELLOW letters </p>
+                <form class="flex justify-center space-x-2">
+                    <input type="text" id="y11" class="yellow w-12 h-12 input input-bordered input-warning rounded">
+                    <input type="text" id="y12" class="yellow w-12 h-12 input input-bordered input-warning rounded">
+                    <input type="text" id="y13" class="yellow w-12 h-12 input input-bordered input-warning rounded">
+                    <input type="text" id="y14" class="yellow w-12 h-12 input input-bordered input-warning rounded">
+                    <input type="text" id="y15" class="yellow w-12 h-12 input input-bordered input-warning rounded">
+                </form>
+                <br />
+                <form class="flex justify-center space-x-2">
+                    <input type="text" id="y21" class="yellow w-12 h-12 input input-bordered input-warning rounded">
+                    <input type="text" id="y22" class="yellow w-12 h-12 input input-bordered input-warning rounded">
+                    <input type="text" id="y23" class="yellow w-12 h-12 input input-bordered input-warning rounded">
+                    <input type="text" id="y24" class="yellow w-12 h-12 input input-bordered input-warning rounded">
+                    <input type="text" id="y25" class="yellow w-12 h-12 input input-bordered input-warning rounded">
+                </form>
+            </div>
+            <br />
+            <div class="container d-flex flex-column align-items-center text-center">
+                <p>GRAY letters </p>
+                <form class="flex justify-center space-x-2">
+                    <input type="text" id="gray" class="gray w-28 h-12 input input-bordered rounded">
+                </form>
+            </div>
+
+            <div class="container text-center">
+                <button type="button" class="btn btn-info rounded-pill px-3 mt-3" onclick="fetch_words()">Find
+                    Words</button>
+            </div>
+
+            <br />
+            <br />
+
+        </article>
+        <article class="prose p-10 flex-grow w-1/2">
+            <div class="container mx-auto text-center">
+                <h1 class="text-3xl">Results</h1>
+                <p>Here are all the possible words!</p>
+            </div>
+            <div class="container mx-auto text-center py-4">
+                <div id="result"></div>
+            </div>
+        </article>
+    </div>
+
+    <%- include('footer.ejs') %>
+
+    <script>
+        async function fetch_words() {
+            greens = ["g1", "g2", "g3", "g4", "g5"]
+            yellow = ["y11", "y12", "y13", "y14", "y15", "y21", "y22", "y23", "y24", "y25"]
+            let url = 'http://localhost:8080/games/wordlewords?';
+            for (let i = 0; i < 5; i++) {
+                if (greens[i] != "") {
+                    url += greens[i] + '=' + document.getElementById(greens[i]).value + '&';
+                }
+            }
+            for (let i = 0; i < 10; i++) {
+                if (yellow[i] != "") {
+                    url += yellow[i] + '=' + document.getElementById(yellow[i]).value + '&';
+                }
+            }
+            url += 'gray=' + document.getElementById("gray").value;
+            console.log(url)
+            const response = await fetch(url)
+            console.log(response)
+            let result = await response.json();
+
+            let resultHTML = '';
+            for (let i = 0; i < result.length; i += 3) {
+                resultHTML += '<div class="flex justify-center">'; // Start a new row
+
+                // Create a new column for each word
+                for (let j = i; j < i + 3 && j < result.length; j++) {
+                    resultHTML += `<div class="w-1/3 text-center">${result[j]}</div>`;
+                }
+
+                resultHTML += '</div>'; // End the row
+            }
+
+            document.getElementById("result").innerHTML = resultHTML;
+        }
+
+        var greenboxes = document.querySelectorAll('.green');
+        greenboxes.forEach(function (greenbox) {
+            greenbox.addEventListener('input', async function () {
+                greenbox.value = greenbox.value.toUpperCase();
+                if (greenbox.value) {
+                    greenbox.style.backgroundColor = 'green';
+                } else {
+                    greenbox.style.backgroundColor = '';
+                }
+            });
+        });
+
+        var yellowboxes = document.querySelectorAll('.yellow');
+        yellowboxes.forEach(function (yellowbox) {
+            yellowbox.addEventListener('input', async function () {
+                yellowbox.value = yellowbox.value.toUpperCase();
+                if (yellowbox.value) {
+                    yellowbox.style.backgroundColor = '#ffd700';
+                } else {
+                    yellowbox.style.backgroundColor = '';
+                }
+            });
+        });
+
+        var graybox = document.querySelector('.gray');
+        graybox.addEventListener('input', async function () {
+            graybox.value = graybox.value.toUpperCase();
+            if (graybox.value) {
+                graybox.style.backgroundColor = 'gray';
+            } else {
+                graybox.style.backgroundColor = '';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
