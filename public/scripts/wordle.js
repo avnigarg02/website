@@ -33,36 +33,71 @@ async function fetch_words() {
     document.getElementById("result").innerHTML = resultHTML;
 }
 
-var greenboxes = document.querySelectorAll('.green');
-greenboxes.forEach(function (greenbox) {
+var greenboxes = Array.from(document.querySelectorAll('.green'));
+greenboxes.forEach(function (greenbox, index) {
     greenbox.addEventListener('input', async function () {
-        greenbox.value = greenbox.value.toUpperCase();
+        greenbox.value = greenbox.value.replace(/[^a-zA-Z]/g, '').slice(0, 1).toUpperCase();
         if (greenbox.value) {
-            greenbox.style.backgroundColor = 'green';
+            greenbox.classList.add('bg-success');
+            const nextGreenbox = greenboxes[index + 1];
+            if (nextGreenbox) {
+                nextGreenbox.focus();
+            }
         } else {
-            greenbox.style.backgroundColor = '';
+            greenbox.classList.remove('bg-success');
+        }
+    });
+
+    greenbox.addEventListener('keydown', function (event) {
+        if (event.key === 'Backspace' && greenbox.value === '') {
+            const previousGreenbox = greenboxes[index - 1];
+            if (previousGreenbox) {
+                previousGreenbox.value = '';
+                previousGreenbox.classList.remove('bg-success');
+                previousGreenbox.focus();
+            }
         }
     });
 });
 
-var yellowboxes = document.querySelectorAll('.yellow');
-yellowboxes.forEach(function (yellowbox) {
+var yellowboxes = Array.from(document.querySelectorAll('.yellow'));
+yellowboxes.forEach(function (yellowbox, index) {
     yellowbox.addEventListener('input', async function () {
-        yellowbox.value = yellowbox.value.toUpperCase();
+        yellowbox.value = yellowbox.value.replace(/[^a-zA-Z]/g, '').slice(0, 1).toUpperCase();
         if (yellowbox.value) {
-            yellowbox.style.backgroundColor = '#ffd700';
+            yellowbox.classList.add('bg-warning');
+            const nextYellowbox = yellowboxes[index + 1];
+            if (nextYellowbox) {
+                nextYellowbox.focus();
+            }
         } else {
-            yellowbox.style.backgroundColor = '';
+            yellowbox.classList.remove('bg-warning');
+        }
+    });
+
+    yellowbox.addEventListener('keydown', function (event) {
+        if (event.key === 'Backspace' && yellowbox.value === '') {
+            const previousYellowbox = yellowboxes[index - 1];
+            if (previousYellowbox) {
+                previousYellowbox.value = '';
+                previousYellowbox.classList.remove('bg-warning');
+                previousYellowbox.focus();
+            }
         }
     });
 });
 
 var graybox = document.querySelector('.gray');
 graybox.addEventListener('input', async function () {
-    graybox.value = graybox.value.toUpperCase();
+    graybox.value = graybox.value.replace(/[^a-zA-Z]/g, '').toUpperCase();
     if (graybox.value) {
         graybox.style.backgroundColor = 'gray';
     } else {
         graybox.style.backgroundColor = '';
     }
 });
+
+var grayInput = document.getElementById('gray');
+grayInput.oninput = function() {
+    this.style.width = Math.max(7, ((this.value.length) * 0.55 + 2.45)) + 'rem';
+};
